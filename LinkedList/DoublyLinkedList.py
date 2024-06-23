@@ -6,8 +6,8 @@ class HandleError:
 
   @staticmethod
   def check_if_index_is_in_range(index:int, start, end):
-    if index < start or index > end:
-      raise Exception("value cannot be none")
+    if index < start and index > end:
+      raise Exception("Index should be in range -1 to total length-1")
 
 class Node:
   def __init__(self, value):

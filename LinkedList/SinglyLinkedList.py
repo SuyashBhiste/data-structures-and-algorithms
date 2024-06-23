@@ -6,7 +6,7 @@ class HandleError:
 
   @staticmethod
   def check_if_index_in_range(index, start, end):
-    if index < start or index > end:
+    if index < start and index > end:
       raise Exception("Index should be in range -1 to total length-1")
 
 class Node:
