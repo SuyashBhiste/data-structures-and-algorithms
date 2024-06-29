@@ -1,62 +1,58 @@
 class Queue:
     def __init__(self):
-        self.array = []
+        self.items = []
+        self.__front = 0
 
     def __str__(self) -> str:
-        return str(self.array)
+        return str(self.items)
     
     def __len__(self) -> int:
-        return len(self.array)
+        return len(self.items)
     
-    def push(self, value:int):
-        self.array.append(value)
+    def enqueue(self, value:int):
+        self.items.append(value)
     
-    def pop(self):
-        if self.is_empty():
-            return None
-        
-        data = self.array[0]
-        self.array = self.array[1:]
-        return data
+    def dequeue(self):
+        return self.items.pop(self.__front) if not self.is_empty() else None
     
     def peek(self) -> int:
-        return self.array[0] if not self.is_empty() else None
+        return self.items[self.__front] if not self.is_empty() else None
 
     def is_empty(self) -> bool:
-        return not self.array
+        return not self.items
     
     def clear(self) -> None:
-        self.array = []
+        self.items = []
 
-que = Queue()
+class UnitTest:
+    @staticmethod
+    def run_positive_test():
+        queue = Queue()
 
-print("is_empty", que.is_empty())
-print("Push")
-que.push(1)
-que.display()
-print("Clear")
-que.clear()
-que.display()
+        assert queue.is_empty(), "Empty queue test failed"
+        queue.enqueue(1)
+        assert not queue.is_empty(), "Empty queue test failed"
 
-print("Push")
-que.push(1)
-que.display()
-print("Push")
-que.push(2)
-que.display()
-print("Push")
-que.push(3)
-que.display()
+        queue.enqueue(2)
+        assert queue.peek() == 1, "Peek test failed"
+        assert queue.dequeue() == 1, "Enqueue dequeue test failed"
+        assert len(queue) == 1, "Length test failed"
 
-print("Peek", que.peek())
-print("is_empty", que.is_empty())
+        queue.enqueue(3)
+        assert queue.peek() == 2, "Peek test failed"
+        assert queue.dequeue() == 2, "Enqueue dequeue test failed"
+        assert len(queue) == 1, "Length test failed"
 
-print("Pop")
-que.pop()
-que.display()
-print("Pop")
-que.pop()
-que.display()
-print("Pop")
-que.pop()
-que.display()
+        print("All positive test cases passed")
+
+    @staticmethod
+    def run_negative_test():
+        queue = Queue()
+
+        assert queue.dequeue() == None, "Dequeue test failed"
+        assert queue.peek() == None, "Peek test failed"
+
+        print("All negative test cases passed")
+    
+UnitTest.run_positive_test()
+UnitTest.run_negative_test()

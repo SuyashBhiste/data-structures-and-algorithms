@@ -1,6 +1,7 @@
 class Stack:
     def __init__(self):
         self.items = []
+        self.__last = -1
     
     def __len__(self) -> int:
         return len(self.items)
@@ -15,7 +16,7 @@ class Stack:
         return self.items.pop() if not self.is_empty() else None
     
     def peek(self) -> int:
-        return self.items[-1] if not self.is_empty() else None
+        return self.items[self.__last] if not self.is_empty() else None
     
     def is_empty(self) -> bool:
         return not len(self)
