@@ -1,48 +1,57 @@
 class Stack:
     def __init__(self):
-        self.array = []
+        self.items = []
+        self.length = 0
     
-    def push(self, value:int):
-        self.array.append(value)
+    def push(self, item:int) -> None:
+        self.items.append(item)
+        self.length += 1
     
     def pop(self) -> int:
-        return self.array.pop() if len(self.array) else -1
+        if len(self.items):
+            self.length -= 1
+            return self.items.pop()
+        return None
     
+
     def peek(self) -> int:
-        return self.array[-1] if len(self.array) else -1
+        return self.items[-1] if len(self.items) else None
     
     def is_empty(self) -> bool:
-        return len(self.array) == 0
+        return not len(self.items)
     
-    def display(self):
-        for value in self.array:
-            print(value, end=", ")
-        print()
+    def display(self) -> None:
+        print(self.items)
 
-st = Stack()
-print("is_empty", st.is_empty())
-st.push(1)
-print("Push")
-st.display()
-st.push(2)
-print("Push")
-st.display()
-st.push(3)
-print("Push")
-st.display()
+class UnitTest:
+    @staticmethod
+    def run_positive_tests():
+        stack = Stack()
 
-print()
-print("Peek", st.peek())
-st.display()
-print("is_empty", st.is_empty())
-print()
+        assert stack.is_empty(), "Empty stack test case failed"
+        stack.push(1)
+        assert not stack.is_empty(), "Empty stack test case failed"
 
-print("Pop", end=" ")
-print(st.pop())
-st.display()
-print("Pop", end=" ")
-print(st.pop())
-st.display()
-print("Pop", end=" ")
-print(st.pop())
-st.display()
+        stack.push(2)
+        assert stack.peek() == 2, "Peek test case failed"
+        assert stack.pop() == 2, "Push pop test case failed"
+        assert stack.length == 1, "Length test case failed"
+
+        stack.push(3)
+        assert stack.peek() == 3, "Peek test case failed"
+        assert stack.pop() == 3, "Push pop test case failed"
+        assert stack.length == 1, "Length test case failed"
+
+        print("All positive test cases passed")
+    
+    @staticmethod
+    def run_negative_tests():
+        stack = Stack()
+
+        assert stack.pop() == None, "Pop test case failed"
+        assert stack.peek() == None, "Peek test case failed"
+
+        print("All negative test cases passed")
+
+UnitTest.run_positive_tests()
+UnitTest.run_negative_tests()
