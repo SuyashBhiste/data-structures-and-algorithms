@@ -1,30 +1,32 @@
 class Queue:
     def __init__(self):
         self.array = []
+
+    def __str__(self) -> str:
+        return str(self.array)
+    
+    def __len__(self) -> int:
+        return len(self.array)
     
     def push(self, value:int):
         self.array.append(value)
     
-    def pop(self) -> int:
-        if len(self.array) == 0:
-            return -1
+    def pop(self):
+        if self.is_empty():
+            return None
+        
         data = self.array[0]
         self.array = self.array[1:]
         return data
     
-    def peek(self):
-        return self.array[0] if len(self.array) else -1
+    def peek(self) -> int:
+        return self.array[0] if not self.is_empty() else None
 
-    def is_empty(self):
-        return len(self.array) == 0
+    def is_empty(self) -> bool:
+        return not self.array
     
-    def clear(self):
+    def clear(self) -> None:
         self.array = []
-    
-    def display(self):
-        for value in self.array:
-            print(value, end=" ")
-        print()
 
 que = Queue()
 

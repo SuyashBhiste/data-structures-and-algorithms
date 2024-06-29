@@ -11,7 +11,7 @@ class Stack:
     def push(self, item:int) -> None:
         self.items.append(item)
     
-    def pop(self):
+    def pop(self) -> int:
         return self.items.pop() if not self.is_empty() else None
     
     def peek(self) -> int:

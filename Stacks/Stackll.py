@@ -11,7 +11,14 @@ class Stackll:
     def __len__(self) -> int:
         return self.__length
     
-    def push(self, data):
+    def __str__(self):
+        current_node = self.top
+        while current_node:
+            print(current_node.data, end=" > ")
+            current_node = current_node.next
+        return "None"
+    
+    def push(self, data) -> None:
         new_node = Node(data)
         new_node.next = self.top
         self.top = new_node
@@ -26,18 +33,11 @@ class Stackll:
         self.__length -= 1
         return prev_top.data
     
-    def peek(self):
+    def peek(self) -> int:
         return self.top.data if not self.is_empty() else None
     
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return not self.top
-    
-    def display(self):
-        current_node = self.top
-        while current_node:
-            print(current_node.data, end=" > ")
-            current_node = current_node.next
-        print("None")
 
 
 class UnitTest:
