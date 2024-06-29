@@ -6,13 +6,16 @@ class Node:
 class Stackll:
     def __init__(self):
         self.top = None
-        self.length = 0
+        self.__length = 0
+    
+    def __len__(self) -> int:
+        return self.__length
     
     def push(self, data):
         new_node = Node(data)
         new_node.next = self.top
         self.top = new_node
-        self.length += 1
+        self.__length += 1
     
     def pop(self):
         if self.is_empty():
@@ -20,7 +23,7 @@ class Stackll:
         
         prev_top = self.top
         self.top = self.top.next
-        self.length -= 1
+        self.__length -= 1
         return prev_top.data
     
     def peek(self):
@@ -49,12 +52,12 @@ class UnitTest:
         stack.push(2)
         assert stack.peek() == 2, "Peek test case failed"
         assert stack.pop() == 2, "Push pop test case failed"
-        assert stack.length == 1, "Length test case failed"
+        assert len(stack) == 1, "Length test case failed"
 
         stack.push(3)
         assert stack.peek() == 3, "Peek test case failed"
         assert stack.pop() == 3, "Push pop test case failed"
-        assert stack.length == 1, "Length test case failed"
+        assert len(stack) == 1, "Length test case failed"
 
         print("All positive test cases passed")
     

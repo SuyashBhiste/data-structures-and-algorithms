@@ -1,27 +1,24 @@
 class Stack:
     def __init__(self):
         self.items = []
-        self.length = 0
+    
+    def __len__(self) -> int:
+        return len(self.items)
+    
+    def __str__(self) -> str:
+        return str(self.items)
     
     def push(self, item:int) -> None:
         self.items.append(item)
-        self.length += 1
     
     def pop(self):
-        if self.is_empty():
-            return None
-        
-        self.length -= 1
-        return self.items.pop()
+        return self.items.pop() if not self.is_empty() else None
     
     def peek(self) -> int:
         return self.items[-1] if not self.is_empty() else None
     
     def is_empty(self) -> bool:
-        return not len(self.items)
-    
-    def display(self) -> None:
-        print(self.items)
+        return not len(self)
 
 class UnitTest:
     @staticmethod
@@ -35,12 +32,12 @@ class UnitTest:
         stack.push(2)
         assert stack.peek() == 2, "Peek test case failed"
         assert stack.pop() == 2, "Push pop test case failed"
-        assert stack.length == 1, "Length test case failed"
+        assert len(stack) == 1, "Length test case failed"
 
         stack.push(3)
         assert stack.peek() == 3, "Peek test case failed"
         assert stack.pop() == 3, "Push pop test case failed"
-        assert stack.length == 1, "Length test case failed"
+        assert len(stack) == 1, "Length test case failed"
 
         print("All positive test cases passed")
     
