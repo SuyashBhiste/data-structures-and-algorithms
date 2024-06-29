@@ -7,13 +7,15 @@ class Stack:
         self.items.append(item)
         self.length += 1
     
-    def pop(self) -> int:
-        if len(self.items):
-            self.length -= 1
-            return self.items.pop()
+    def pop(self):
+        if self.is_empty():
+            return None
+        
+        self.length -= 1
+        return self.items.pop()
     
     def peek(self) -> int:
-        return self.items[-1] if len(self.items) else None
+        return self.items[-1] if not self.is_empty() else None
     
     def is_empty(self) -> bool:
         return not len(self.items)

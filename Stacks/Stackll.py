@@ -1,82 +1,71 @@
 class Node:
-    def __init__(self, data: int):
+    def __init__(self, data):
         self.data = data
         self.next = None
 
 class Stackll:
     def __init__(self):
-        self.head = None
-        self.last = None
+        self.top = None
         self.length = 0
     
-    def push(self, value: int):
-        if self.head is None:
-            self.head = Node(value)
-            self.last = self.head
-        else:
-            self.last.next = Node(value)
-            self.last = self.last.next
+    def push(self, data):
+        new_node = Node(data)
+        new_node.next = self.top
+        self.top = new_node
         self.length += 1
     
     def pop(self):
-        if self.head is None:
-            return -1
-        elif self.length == 1:
-            last_node = self.head
-            self.head = None
-            self.length -= 1
-            return last_node.data
-        elif self.length == 2:
-            last_node = self.head.next
-            self.head.next = None
-            self.length -= 1
-            return last_node.data
-        else:
-            current_node = self.head
-            while current_node.next.next:
-                current_node = current_node.next
-            last_node = current_node.next
-            current_node.next = current_node.next.next
-            self.length -= 1
-            return last_node.data
+        if self.is_empty():
+            return None
+        
+        prev_top = self.top
+        self.top = self.top.next
+        self.length -= 1
+        return prev_top.data
     
     def peek(self):
-        return self.last.data if self.head else -1
+        return self.top.data if not self.is_empty() else None
     
     def is_empty(self):
-        return self.head is None
+        return not self.top
     
     def display(self):
-        current_node = self.head
+        current_node = self.top
         while current_node:
-            print(current_node.data, end=" ")
+            print(current_node.data, end=" > ")
             current_node = current_node.next
-        print()
+        print("None")
 
-st = Stackll()
-print("is_empty", st.is_empty())
-st.push(1)
-print("Push")
-st.display()
-st.push(2)
-print("Push")
-st.display()
-st.push(3)
-print("Push")
-st.display()
 
-print()
-print("Peek", st.peek())
-st.display()
-print("is_empty", st.is_empty())
-print()
+class UnitTest:
+    @staticmethod
+    def run_positive_tests():
+        stack = Stackll()
 
-print("Pop", end=" ")
-print(st.pop())
-st.display()
-print("Pop", end=" ")
-print(st.pop())
-st.display()
-print("Pop", end=" ")
-print(st.pop())
-st.display()
+        assert stack.is_empty(), "Empty stack test case failed"
+        stack.push(1)
+        assert not stack.is_empty(), "Empty stack test case failed"
+
+        stack.push(2)
+        assert stack.peek() == 2, "Peek test case failed"
+        assert stack.pop() == 2, "Push pop test case failed"
+        assert stack.length == 1, "Length test case failed"
+
+        stack.push(3)
+        assert stack.peek() == 3, "Peek test case failed"
+        assert stack.pop() == 3, "Push pop test case failed"
+        assert stack.length == 1, "Length test case failed"
+
+        print("All positive test cases passed")
+    
+    @staticmethod
+    def run_negative_tests():
+        stack = Stackll()
+
+        assert stack.pop() == None, "Pop test case failed"
+        assert stack.peek() == None, "Peek test case failed"
+
+        print("All negative test cases passed")
+
+UnitTest.run_positive_tests()
+UnitTest.run_negative_tests()
