@@ -11,9 +11,7 @@ class Stack:
         if len(self.items):
             self.length -= 1
             return self.items.pop()
-        return None
     
-
     def peek(self) -> int:
         return self.items[-1] if len(self.items) else None
     
