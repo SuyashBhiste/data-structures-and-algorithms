@@ -20,9 +20,6 @@ class Queue:
 
     def is_empty(self) -> bool:
         return not self.items
-    
-    def clear(self) -> None:
-        self.items = []
 
 class UnitTest:
     @staticmethod
