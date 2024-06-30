@@ -5,14 +5,14 @@ class Node:
 
 class Stackll:
     def __init__(self):
-        self.top = None
+        self.__top = None
         self.__length = 0
     
     def __len__(self) -> int:
         return self.__length
     
     def __str__(self):
-        current_node = self.top
+        current_node = self.__top
         while current_node:
             print(current_node.data, end=" > ")
             current_node = current_node.next
@@ -20,24 +20,24 @@ class Stackll:
     
     def push(self, data) -> None:
         new_node = Node(data)
-        new_node.next = self.top
-        self.top = new_node
+        new_node.next = self.__top
+        self.__top = new_node
         self.__length += 1
     
     def pop(self):
         if self.is_empty():
             return None
         
-        prev_top = self.top
-        self.top = self.top.next
+        prev_top = self.__top
+        self.__top = self.__top.next
         self.__length -= 1
         return prev_top.data
     
     def peek(self) -> int:
-        return self.top.data if not self.is_empty() else None
+        return self.__top.data if not self.is_empty() else None
     
     def is_empty(self) -> bool:
-        return not self.top
+        return not len(self)
 
 
 class UnitTest:

@@ -1,19 +1,19 @@
 class Node:
-    def __init__(self, data: int):
+    def __init__(self, data: int) -> None:
         self.data = data
         self.next = None
 
 class Queuell:
     def __init__(self):
-        self.front = None
-        self.rear = None
+        self.__front = None
+        self.__rear = None
         self.__length = 0
 
     def __len__(self) -> int:
         return self.__length
     
     def __str__(self) -> str:
-        current_node = self.front
+        current_node = self.__front
         while current_node:
             print(current_node.data, end=" > ")
             current_node = current_node.next
@@ -21,28 +21,29 @@ class Queuell:
 
     def enqueue(self, value: int):
         new_node = Node(value)
-        if self.rear:
-            self.rear.next = new_node
-        self.rear = new_node
         if self.is_empty():
-            self.front = self.rear
+            self.__front = new_node
+            self.__rear = new_node
+        else:
+            self.__rear.next = new_node
+            self.__rear = self.__rear.next
         self.__length += 1
 
     def dequeue(self):
-        if self.front is None:
+        if self.is_empty():
             return None
-        data = self.front.data
-        self.front = self.front.next
-        if self.front is None:
-            self.rear = None
+        data = self.__front.data
+        self.__front = self.__front.next
+        if self.__front is None:
+            self.__rear = None
         self.__length -= 1
         return data
     
     def peek(self) -> int:
-        return self.front.data if self.front else None
+        return self.__front.data if not self.is_empty() else None
     
     def is_empty(self) -> bool:
-        return not self.front
+        return not self.__front
 
 class UnitTest:
     @staticmethod

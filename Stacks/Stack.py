@@ -1,22 +1,22 @@
 class Stack:
     def __init__(self):
-        self.items = []
+        self.__items = []
         self.__last = -1
     
     def __len__(self) -> int:
-        return len(self.items)
+        return len(self.__items)
     
     def __str__(self) -> str:
-        return str(self.items)
+        return str(self.__items)
     
     def push(self, item:int) -> None:
-        self.items.append(item)
+        self.__items.append(item)
     
     def pop(self) -> int:
-        return self.items.pop() if not self.is_empty() else None
+        return self.__items.pop() if not self.is_empty() else None
     
     def peek(self) -> int:
-        return self.items[self.__last] if not self.is_empty() else None
+        return self.__items[self.__last] if not self.is_empty() else None
     
     def is_empty(self) -> bool:
         return not len(self)

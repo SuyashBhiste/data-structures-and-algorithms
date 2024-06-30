@@ -1,25 +1,25 @@
 class Queue:
     def __init__(self):
-        self.items = []
+        self.__items = []
         self.__front = 0
 
     def __str__(self) -> str:
-        return str(self.items)
+        return str(self.__items)
     
     def __len__(self) -> int:
-        return len(self.items)
+        return len(self.__items)
     
-    def enqueue(self, value:int):
-        self.items.append(value)
+    def enqueue(self, item:int) -> None:
+        self.__items.append(item)
     
-    def dequeue(self):
-        return self.items.pop(self.__front) if not self.is_empty() else None
+    def dequeue(self) -> int:
+        return self.__items.pop(self.__front) if not self.is_empty() else None
     
     def peek(self) -> int:
-        return self.items[self.__front] if not self.is_empty() else None
+        return self.__items[self.__front] if not self.is_empty() else None
 
     def is_empty(self) -> bool:
-        return not self.items
+        return not len(self)
 
 class UnitTest:
     @staticmethod
