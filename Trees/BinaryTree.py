@@ -1,72 +1,68 @@
+#      1
+#   2      3
+# 4   5  6   7
 class Node:
-	def __init__(self, data):
-		self.data = data
-		self.left = None
-		self.right = None
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
 
 class BinaryTree:
-	#		1
-	#	2		3
-	# 4	  5	  6     7
-	def __init__(self):
-		self.root = None
-	
-	def insert(self, data):
-		if not self.root:
-			self.root = Node(data)
-		else:
-			self.insert_recursively(self.root, data)
+    def __init__(self):
+        self.root = None
+    
+    def insert(self, data):
+        if not self.root:
+            self.root = Node(data)
+        else:
+            self.insert_recursively(self.root, data)
+    
+    def insert_recursively(self, node, data):
+        if not node.left:
+            node.left = Node(data)
+        elif not node.right:
+            node.right = Node(data)
+        elif self.calc_height(node.left) <= self.calc_height(node.right):
+            self.insert_recursively(node.left, data)
+        else:
+            self.insert_recursively(node.right, data)
+    
+    def calc_height(self, node):
+        if not node:
+            return 0
+        return 1 + self.calc_height(node.left) + self.calc_height(node.right)
+    
+    def preorder(self, node):
+        if node:
+            print(node.data, end=",")
+            self.preorder(node.left)
+            self.preorder(node.right)
+    
+    def inorder(self, node):
+        if node:
+            self.preorder(node.left)
+            print(node.data, end=",")
+            self.preorder(node.right)
+    
+    def postorder(self, node):
+        if node:
+            self.preorder(node.left)
+            self.preorder(node.right)
+            print(node.data, end=",")
 
-	def insert_recursively(self, current_node, data) -> bool:
-		if current_node:
-			if not current_node.left:
-				current_node.left = Node(data)
-				return True
-			elif not current_node.right:
-				current_node.right = Node(data)
-				return True
-			elif not self.insert_recursively(current_node.left, data):
-					self.insert_recursively(current_node.right, data)
-	
-	def traverse_preorder(self):
-		self.traverse_preorder_recursively(self.root)
-	
-	def traverse_preorder_recursively(self, current_node):
-		if current_node:
-			print(current_node.data, end=", ")
-			self.traverse_preorder_recursively(current_node.left)
-			self.traverse_preorder_recursively(current_node.right)
-	
-	def traverse_inorder(self):
-		self.traverse_inorder_recursively(self.root)
-	
-	def traverse_inorder_recursively(self, current_node):
-		if current_node:
-			self.traverse_inorder_recursively(current_node.left)
-			print(current_node.data, end=", ")
-			self.traverse_inorder_recursively(current_node.right)
-	
-	def traverse_postorder(self):
-		self.traverse_postorder_recursively(self.root)
-	
-	def traverse_postorder_recursively(self, current_node):
-		if current_node:
-			self.traverse_postorder_recursively(current_node.left)
-			self.traverse_postorder_recursively(current_node.right)
-			print(current_node.data, end=", ")
-
-bt = BinaryTree()
-bt.insert(1)
-bt.insert(2)
-bt.insert(3)
-bt.insert(4)
-bt.insert(5)
-bt.insert(6)
-bt.insert(7)
-
-print("Preorder", end=": ") # parent, left, right
-bt.traverse_preorder()
-print("\nInorder", end=": ") # left, parent, right
-bt.traverse_inorder()
-print("\nPostorder", end=": ") # left, right, parent
-bt.traverse_postorder()  
+if __name__ == "__main__":
+    tree = BinaryTree()
+    tree.insert(1)
+    tree.insert(2)
+    tree.insert(3)
+    tree.insert(4)
+    tree.insert(5)
+    tree.insert(6)
+    tree.insert(7)
+    
+    print("Preorder", end=":")
+    tree.preorder(tree.root)
+    print("\nInorder", end=":")
+    tree.inorder(tree.root)
+    print("\nPostorder", end=":")
+    tree.postorder(tree.root)
